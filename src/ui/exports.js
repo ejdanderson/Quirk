@@ -157,6 +157,22 @@ function initExports(revision, obsIsAnyOverlayShowing) {
             saveFile(fileNameForState(latest), moddedHtml);
         });
     })();
+
+    // Export Quil Instructions.
+    (() => {
+        const quilTextElement = /** @type {HTMLPreElement} */ document.getElementById('export-circuit-quil-pre');
+        const copyButton = /** @type {HTMLButtonElement} */ document.getElementById('export-quil-copy-button');
+        const copyResultElement = /** @type {HTMLElement} */ document.getElementById('export-quil-copy-result');
+        setupButtonElementCopyToClipboard(copyButton, quilTextElement, copyResultElement);
+        revision.latestActiveCommit().subscribe(quilText => {
+            try {
+                let val = quilText;
+                quilTextElement.innerText = JSON.stringify(val, null, '  ');
+            } catch (_) {
+                quilTextElement.innerText = quilText;
+            }
+        });
+    })();
 }
 
 export {initExports, obsExportsIsShowing}

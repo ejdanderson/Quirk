@@ -88,6 +88,12 @@ revision.latestActiveCommit().subscribe(jsonText => {
     displayed.set(newInspector);
 });
 
+revision.latestActiveCommit().subscribe(quilText => {
+    let circuitDef = fromJsonText_CircuitDefinition(quilText);
+    let newInspector = displayed.get().withCircuitDefinition(circuitDef);
+    displayed.set(newInspector);
+});
+
 /**
  * @param {!DisplayedInspector} curInspector
  * @returns {{w: number, h: !number}}
